@@ -1,0 +1,29 @@
+i {
+    cursor: pointer;
+}
+
+div.row {
+    margin: 0;
+}
+
+.tabs {
+    margin-top: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.tabs li {
+    color: #37474f ;
+    background: #b0bec5;
+}
+
+.tabs .disabled {
+    color: #90a4ae;
+    background: #cfd8dc;
+}
+
+.wizardTab { 
+    padding: 40px;
+    padding-bottom: 15px;
+    background: #b0bec5;
+}
