@@ -1,4 +1,6 @@
 GLOBAL STORE:
+</br>
+```
     state: {
         user: {
             username: "",
@@ -6,23 +8,20 @@ GLOBAL STORE:
         candidates: [],
         companies: [],
         reports: [],
-        wizard: {
-            step1: {
-                selectedCandidate: { Candidate },   
-            },
-            step2: {
-                selectedCompany: { Company },
-            },
-            step3: {
-                dateAndTime: "",
-                phase: "",
-                passed: false,
-                notes: ""
-            }
+        wizardData: {
+            selectedCandidate: Candidate, 
+            selectedCompany: Company,
+            dateAndTime: "",
+            phase: "",
+            passed: false,
+            notes: ""
         }
     }
+ ```
 
 ENTITIES:
+</br>
+```
     Candidate: {
         id: number,
         avatar: string,
@@ -49,3 +48,4 @@ ENTITIES:
         status: string,
         note: string
     }
+ ```
