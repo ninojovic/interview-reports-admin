@@ -1,10 +1,11 @@
 import React from 'react'
 import { wizardTabs } from '../utils/constants'
 
-function clearActiveTabState(WrappedComponent) {
+function fetchDataOnMountHOC(WrappedComponent) {
     return class extends React.Component {
         componentDidMount() {
             this.props.fetchCandidatesRequest()
+            this.props.fetchCompaniesRequest()
         }
         componentWillUnmount() {
             this.props.setActiveWizardTab(wizardTabs.CANDIDATE_TAB)
@@ -17,4 +18,4 @@ function clearActiveTabState(WrappedComponent) {
     }
 }
 
-export default clearActiveTabState
+export default fetchDataOnMountHOC

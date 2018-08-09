@@ -15,7 +15,7 @@ class ModalComponent extends Component {
     }
 
     render() {
-        const { candidateName, companyName, interviewDate, phase, status, note } = this.props.report;
+        const { candidateName, companyName, interviewDate, phase, status, notes } = this.props.report;
         return (
             <div id="modal1" className="modal">
                 <div className="modal-content">
@@ -24,7 +24,7 @@ class ModalComponent extends Component {
                     <h5>interview date: {new Date(interviewDate).toDateString()}</h5>
                     <h5>phase: {phase}</h5>
                     <h5>status: {status}</h5>
-                    <p>note: {note}</p>
+                    <p>note: {notes}</p>
                 </div>
             </div>
         )
