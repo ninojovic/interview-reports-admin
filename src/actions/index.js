@@ -88,19 +88,30 @@ export const resetWizardData = () => {
     }
 }
 
-export const isReadyForPost = (readyStatus) => {
+export const selectInterviewDate = (interviewDate) => {
     return {
-        type: actionTypes.IS_READY_FOR_POST,
-        readyStatus
+        type: actionTypes.INTERVIEW_DATE_SELECTED,
+        interviewDate
     }
 }
 
-export const detailsFilledIn = (interviewDate, phase, status, notes) => {
+export const selectPhase = (phase) => {
     return {
-        type: actionTypes.DETAILS_FILLED_IN,
-        interviewDate,
-        phase,
-        status,
+        type: actionTypes.PHASE_SELECTED,
+        phase
+    }
+}
+
+export const selectStatus = (status) => {
+    return {
+        type: actionTypes.STATUS_SELECTED,
+        status
+    }
+}
+
+export const fillInNotes = (notes) => {
+    return {
+        type: actionTypes.NOTES_FILLED_IN,
         notes
     }
 }

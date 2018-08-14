@@ -1,45 +1,43 @@
 import React from 'react'
 import { wizardTabs } from '../../../utils/constants'
 
+import ReportModal from './ReportModal'
+
 import M from 'materialize-css'
 
-const FillDetailsComponent = ({ setActiveWizardTab, wizardData, detailsFilledIn, reportPostRequested, resetWizardData }) => {
-    let datePickerInstance, selectPhaseInstance, selectStatusInstance, modalInstance;
+const FillDetailsComponent = ({ setActiveWizardTab, wizardData, selectInterviewDate, selectPhase, selectStatus, fillInNotes, reportPostRequested, resetWizardData, reports }) => {
+
+    const selectedCandidateReports = reports.filter(report => report.candidateId == wizardData.candidateId)
+    const candidateReportsInSelectedCompany = selectedCandidateReports.filter(report => report.companyId == wizardData.companyId);
 
     setTimeout(() => {
         const datePickerOptions = {
-            defaultDate: new Date(),
             autoClose: true,
             setDefaultDate: true,
-            maxDate: new Date()
+            maxDate: new Date(),
+            minDate: (() => {
+                const lastReport = getLastReport()
+                if(lastReport){
+                    return new Date(lastReport.interviewDate)
+                }
+            })(),
+            onSelect: (date) => {
+                selectInterviewDate(date)
+            }
         }
 
         const datePicker = document.querySelector('.datepicker');
-        datePickerInstance = M.Datepicker.init(datePicker, datePickerOptions);
+        M.Datepicker.init(datePicker, datePickerOptions);
 
         const selectPhaseElem = document.querySelector('#selectPhase');
-        selectPhaseInstance = M.FormSelect.init(selectPhaseElem);
+        M.FormSelect.init(selectPhaseElem);
 
         const selectStatusElem = document.querySelector('#selectStatus');
-        selectStatusInstance = M.FormSelect.init(selectStatusElem);
+        M.FormSelect.init(selectStatusElem);
 
         const modal = document.querySelector('#reportModal');
-        modalInstance = M.Modal.init(modal);
-
-        if (wizardData.status) {
-            modalInstance.open()
-        }
+        M.Modal.init(modal);
     })
-
-
-    const getDataAndDispatch = (e) => {
-        const date = new Date(datePickerInstance.toString());
-        const phase = selectPhaseInstance.getSelectedValues()[0];
-        const status = selectStatusInstance.getSelectedValues()[0];
-        const notes = document.querySelector('#notes').value
-
-        detailsFilledIn(date, phase, status, notes);
-    }
 
     const onCreateReportHandler = () => {
         reportPostRequested(wizardData)
@@ -47,65 +45,97 @@ const FillDetailsComponent = ({ setActiveWizardTab, wizardData, detailsFilledIn,
         setActiveWizardTab("CANDIDATE_TAB")
     }
 
+    const getLastReport = () => {
+        const cvPhaseReport = candidateReportsInSelectedCompany.find(report => report.phase === "cv")
+        const hrPhaseReport = candidateReportsInSelectedCompany.find(report => report.phase === "hr")
+        const techPhaseReport = candidateReportsInSelectedCompany.find(report => report.phase === "tech")
+        const finalPhaseReport = candidateReportsInSelectedCompany.find(report => report.phase === "final")
+        if(cvPhaseReport){
+            if(hrPhaseReport){
+                if(techPhaseReport){
+                    if(finalPhaseReport){
+                        return finalPhaseReport
+                    } else {
+                        return techPhaseReport
+                    }
+                } else {
+                    return hrPhaseReport
+                }
+            } else {
+                return cvPhaseReport
+            }
+        }
+    }
+
+    const checkCandidatePhase = (phaseToCheck) => {
+        const lastReport = getLastReport();
+        if(!lastReport){
+            if(phaseToCheck === "cv"){
+                return ""
+            }
+            return "disabled"
+        }
+
+        switch(true){
+            case phaseToCheck === "hr" && lastReport.phase === "cv":
+                return ""
+            case phaseToCheck === "tech" && lastReport.phase === "hr":
+                return ""
+            case phaseToCheck === "final" && lastReport.phase === "tech":
+                return ""
+            default:
+                return "disabled"
+        }
+    }
+
+    const { candidateName, companyName, interviewDate, phase, status, notes, isReadyForPost } = wizardData
+
     return (
         <div className="row">
             <div className="col s6">
                 <p><b>selected candidate:</b></p>
-                <h5><em>{wizardData.candidateName}</em></h5>
+                <h5><em>{candidateName}</em></h5>
                 <p><b>selected company: </b></p>
-                <h5><em>{wizardData.companyName}</em></h5>
+                <h5><em>{companyName}</em></h5>
             </div>
             <div className="col s6">
                 <div className="col s12" >
                     <label>select date</label>
-                    <input type="text" className="datepicker" />
+                    <input defaultValue={interviewDate || "select date"} type="text" className="datepicker" />
                 </div>
                 <div className="input-field col s12">
-                    <select id="selectPhase" >
-                        <option defaultValue="cv">CV</option>
-                        <option value="hr">HR</option>
-                        <option value="tech">TECH</option>
-                        <option value="final">FINAL</option>
+                    <select defaultValue={phase || ""} id="selectPhase" onChange={(e) => selectPhase(e.target.value)}>
+                        <option value="" disabled>select phase</option>
+                        <option value="cv" disabled={checkCandidatePhase("cv")}>CV</option>
+                        <option value="hr" disabled={checkCandidatePhase("hr")}>HR</option>
+                        <option value="tech" disabled={checkCandidatePhase("tech")}>TECH</option>
+                        <option value="final" disabled={checkCandidatePhase("final")}>FINAL</option>
                     </select>
                     <label>select phase</label>
                 </div>
                 <div className="input-field col s12">
-                    <select defaultValue="" id="selectStatus" >
+                    <select defaultValue={status || ""} id="selectStatus" onChange={(e) => selectStatus(e.target.value)} >
+                        <option value="" disabled>select status</option>
                         <option value="passed">PASSED</option>
                         <option value="declined">DECLINED</option>
                     </select>
                     <label>select status</label>
                 </div>
                 <div className="input-field col s12">
-                    <textarea id="notes" className="materialize-textarea"></textarea>
+                    <textarea defaultValue={notes || ""} id="notes" className="materialize-textarea" onBlur={(e) => fillInNotes(e.target.value)}></textarea>
                     <label>notes</label>
                 </div>
             </div>
             <div className="col s12 buttonRow">
                 <button className="col s3 blue-grey darken-2 btn" onClick={() => setActiveWizardTab(wizardTabs.COMPANY_TAB)}>BACK</button>
-                <button className={`col s3 offset-s6 blue-grey darken-2 btn ${wizardData ? "" : "disabled"}`} onClick={getDataAndDispatch} >CREATE REPORT</button>
+                <button
+                    data-target="reportModal"
+                    className={`col s3 offset-s6 modal-trigger blue-grey darken-2 btn ${isReadyForPost ? "" : "disabled"}`}
+                >
+                    CREATE REPORT
+                </button>
             </div>
-            <div id="reportModal" className="modal">
-                <div className="modal-content center">
-                    <div className="col s12">
-                        <p><b>selected candidate:</b></p>
-                        <h5><em>{wizardData.candidateName}</em></h5>
-                        <p><b>selected company: </b></p>
-                        <h5><em>{wizardData.companyName}</em></h5>
-                        <p><b>interview date:</b></p>
-                        <h5><em>{(new Date(wizardData.interviewDate)).toDateString()}</em></h5>
-                        <p><b>interview phase: </b></p>
-                        <h5><em>{wizardData.phase}</em></h5>
-                        <p><b>interview status: </b></p>
-                        <h5><em>{wizardData.status}</em></h5>
-                        <p><b>notes: </b></p>
-                        <h5><em>{wizardData.notes}</em></h5>
-                    </div>
-                    <div className="buttonRow col s12">
-                        <button className="col s4 offset-s4 blue-grey darken-2 btn" onClick={onCreateReportHandler}>SUBMIT</button>
-                    </div>
-                </div>
-            </div>
+            <ReportModal wizardData={wizardData} onCreateReportHandler={onCreateReportHandler} />
         </div>
     )
 }

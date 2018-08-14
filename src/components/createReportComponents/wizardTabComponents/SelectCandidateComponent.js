@@ -34,7 +34,12 @@ const SelectCandidateComponent = ({ setActiveWizardTab, candidates, selectCandid
                 <label>Select candidate</label>
             </div>
             <div className="buttonRow col s12">
-                <button className={`col s3 offset-s9 blue-grey darken-2 btn ${wizardData.candidateId ? "" : "disabled"}`} onClick={() => setActiveWizardTab(wizardTabs.COMPANY_TAB)} >NEXT</button>
+                <button 
+                    className={`col s3 offset-s9 blue-grey darken-2 btn ${wizardData.candidateId ? "" : "disabled"}`} 
+                    onClick={() => setActiveWizardTab(wizardTabs.COMPANY_TAB)} 
+                >
+                NEXT
+                </button>
             </div>
         </div>
     )

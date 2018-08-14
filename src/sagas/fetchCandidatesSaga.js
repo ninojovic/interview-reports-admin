@@ -12,7 +12,8 @@ function* fetchCandidates() {
         const candidates = yield call(apiFetch)
         yield put({type: actionTypes.CANDIDATES_FETCH_SUCCEEDED, candidates})
     } catch (e) {
-
+        yield put({type: actionTypes.CANDIDATES_FETCH_FAILED})
+        console.log(e)
     }
 }
 

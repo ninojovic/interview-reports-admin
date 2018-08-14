@@ -6,6 +6,7 @@ function fetchDataOnMountHOC(WrappedComponent) {
         componentDidMount() {
             this.props.fetchCandidatesRequest()
             this.props.fetchCompaniesRequest()
+            this.props.fetchReportsRequest()
         }
         componentWillUnmount() {
             this.props.setActiveWizardTab(wizardTabs.CANDIDATE_TAB)

@@ -8,6 +8,7 @@ import CreateReportsLayoutComponent from '../components/createReportComponents/C
 
 const mapStateToProps = state => ({
     activeTab: state.activeWizardTabReducer,
+    reports: state.reportsReducer,
     candidates: state.candidatesReducer,
     companies: state.companiesReducer,
     wizardData: state.wizardDataReducer

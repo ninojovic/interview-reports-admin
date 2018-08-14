@@ -1,4 +1,5 @@
 import { actionTypes } from '../utils/constants'
+import { containsNullValue } from '../utils/helpers'
 
 const initialState = {
     candidateName: null,
@@ -8,42 +9,72 @@ const initialState = {
     interviewDate: null,
     phase: null,
     status: null,
-    notes: null,
-    isReadyForPost: false,
+    notes: "",
+    isReadyForPost: false
 }
 
 const wizardDataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.CANDIDATE_SELECTED:
+        case actionTypes.CANDIDATE_SELECTED: {
             return {
                 ...state,
                 candidateName: action.candidateName,
                 candidateId: action.candidateId
             }
-        case actionTypes.COMPANY_SELECTED:
+        }
+
+        case actionTypes.COMPANY_SELECTED: {
             return {
                 ...state,
                 companyName: action.companyName,
                 companyId: action.companyId
             }
-        case actionTypes.DETAILS_FILLED_IN:
-            return {
+        }
+
+        case actionTypes.INTERVIEW_DATE_SELECTED: {
+            let newState = {
                 ...state,
                 interviewDate: action.interviewDate,
-                phase: action.phase,
-                status: action.status,
-                notes: action.notes
             }
-        case actionTypes.RESET_WIZARD_DATA:
-            return initialState
+            newState.isReadyForPost = !containsNullValue(newState)
 
-        case actionTypes.IS_READY_FOR_POST:
+            return newState
+        }
+
+        case actionTypes.PHASE_SELECTED: {
+            let newState = {
+                ...state,
+                phase: action.phase,
+            }
+            newState.isReadyForPost = !containsNullValue(newState)
+
+            return newState
+        }
+
+        case actionTypes.STATUS_SELECTED: {
+            let newState = {
+                ...state,
+                status: action.status,
+            }
+
+            newState.isReadyForPost = !containsNullValue(newState)
+            return newState
+        }
+
+        case actionTypes.NOTES_FILLED_IN: {
             return {
                 ...state,
-                isReadyForPost: action.isReadyForPost
+                notes: action.notes
             }
-        default:
+        }
+
+        case actionTypes.RESET_WIZARD_DATA: {
+            return initialState
+        }
+
+        default: {
             return state;
+        }
     }
 }
 

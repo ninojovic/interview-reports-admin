@@ -13,7 +13,11 @@ const CreateReportsLayoutComponent = ({
     wizardData,
     selectCompany,
     companies,
-    detailsFilledIn,
+    reports,
+    selectInterviewDate,
+    selectPhase,
+    selectStatus,
+    fillInNotes,
     reportPostRequested,
     resetWizardData
 }) => {
@@ -41,13 +45,18 @@ const CreateReportsLayoutComponent = ({
                                     selectCompany={selectCompany}
                                     companies={companies}
                                     wizardData={wizardData}
+                                    reports={reports}
                                 /> :
                                 <FillDetailsComponent
                                     setActiveWizardTab={setActiveWizardTab}
                                     wizardData={wizardData}
-                                    detailsFilledIn={detailsFilledIn}
+                                    selectInterviewDate={selectInterviewDate}
+                                    selectPhase={selectPhase}
+                                    selectStatus={selectStatus}
+                                    fillInNotes={fillInNotes}
                                     reportPostRequested={reportPostRequested}
                                     resetWizardData={resetWizardData}
+                                    reports={reports}
                                 />}
                     </div>
                 </div>

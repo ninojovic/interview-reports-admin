@@ -12,7 +12,8 @@ function* fetchCompanies() {
         const companies = yield call(apiFetch)
         yield put({type: actionTypes.COMPANIES_FETCH_SUCCEEDED, companies})
     } catch (e) {
-
+        yield put({type: actionTypes.COMPANIES_FETCH_FAILED})
+        console.log(e)
     }
 }
 
