@@ -17,14 +17,24 @@ class ModalComponent extends Component {
     render() {
         const { candidateName, companyName, interviewDate, phase, status, notes } = this.props.report;
         return (
-            <div id="modal1" className="modal">
-                <div className="modal-content">
-                    <h3>{candidateName}</h3>
-                    <h5>company: {companyName}</h5>
-                    <h5>interview date: {new Date(interviewDate).toDateString()}</h5>
-                    <h5>phase: {phase}</h5>
-                    <h5>status: {status}</h5>
-                    <p>note: {notes}</p>
+            <div id="modal1" className="modal center">
+                <div className="modal-content row card blue-grey darken-2">
+                    <div className="col s12">
+                        <h3>{candidateName}</h3>
+                    </div>
+                    <div className="col s12">
+                        <label className="modalLabel">company</label>
+                        <h5>{companyName}</h5>
+                        <label className="modalLabel">interview date</label>
+                        <h5>{new Date(interviewDate).toDateString()}</h5>
+                        <label className="modalLabel">phase</label>
+                        <h5>{phase}</h5>
+                        <label className="modalLabel">status</label>
+                        <h5>{status}</h5>
+                        <label className="modalLabel">notes</label>
+                        <p>{notes}</p>
+                        
+                    </div>
                 </div>
             </div>
         )

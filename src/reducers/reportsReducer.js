@@ -2,8 +2,8 @@ import { actionTypes } from '../utils/constants'
 
 const reportsReducer = (state=[], action) => {
     switch (action.type){
-        case actionTypes.REPORTS_FETCH_SUCCEEDED:
-            return action.reports
+        case actionTypes.DATA_FETCH_SUCCEEDED:
+            return action.data.reports
         default:
             return state;
     }

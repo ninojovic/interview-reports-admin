@@ -4,9 +4,7 @@ import { wizardTabs } from '../utils/constants'
 function fetchDataOnMountHOC(WrappedComponent) {
     return class extends React.Component {
         componentDidMount() {
-            this.props.fetchCandidatesRequest()
-            this.props.fetchCompaniesRequest()
-            this.props.fetchReportsRequest()
+            this.props.fetchDataRequest()
         }
         componentWillUnmount() {
             this.props.setActiveWizardTab(wizardTabs.CANDIDATE_TAB)

@@ -1,3 +1,9 @@
+#root{
+    background-color: gray;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
 i {
     cursor: pointer;
 }
@@ -41,6 +47,48 @@ label, .input-field label {
     color: #4f626b;
     font-size: 14px;
 }
+
+label.modalLabel {
+    font-size: 15px;
+    color: #7c919b;
+}
+
+#modal1 h5 {
+    margin-top: 5px;
+    margin-bottom: 30px;
+    color: #b0bec5;
+    font-weight: bold;
+}
+
+#modal1 h3 {
+    font-size: 55px;
+    color: #b0bec5;
+}
+
+.collection {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: #333
+}
+
+.collection .collection-item {
+    padding: 0, 20px;
+}
+
+.collection .collection-item.tableHeader {
+    background-color: #b0bec5;
+    padding: 0, 10px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
 
 .sk-circle {
     margin: 100px auto;

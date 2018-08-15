@@ -1,14 +1,15 @@
 import React from 'react'
 import { wizardTabs } from '../../../utils/constants'
+import { withRouter } from 'react-router-dom'
 
 import ReportModal from './ReportModal'
 
 import M from 'materialize-css'
 
-const FillDetailsComponent = ({ setActiveWizardTab, wizardData, selectInterviewDate, selectPhase, selectStatus, fillInNotes, reportPostRequested, resetWizardData, reports }) => {
+const FillDetailsComponent = ({ history, setActiveWizardTab, wizardData, selectInterviewDate, selectPhase, selectStatus, fillInNotes, reportPostRequested, resetWizardData, reports }) => {
 
-    const selectedCandidateReports = reports.filter(report => report.candidateId == wizardData.candidateId)
-    const candidateReportsInSelectedCompany = selectedCandidateReports.filter(report => report.companyId == wizardData.companyId);
+    const selectedCandidateReports = reports.filter(report => report.candidateId === wizardData.candidateId)
+    const candidateReportsInSelectedCompany = selectedCandidateReports.filter(report => report.companyId === wizardData.companyId);
 
     setTimeout(() => {
         const datePickerOptions = {
@@ -40,9 +41,7 @@ const FillDetailsComponent = ({ setActiveWizardTab, wizardData, selectInterviewD
     })
 
     const onCreateReportHandler = () => {
-        reportPostRequested(wizardData)
-        resetWizardData()
-        setActiveWizardTab("CANDIDATE_TAB")
+        reportPostRequested(wizardData, history)
     }
 
     const getLastReport = () => {
@@ -140,4 +139,4 @@ const FillDetailsComponent = ({ setActiveWizardTab, wizardData, selectInterviewD
     )
 }
 
-export default FillDetailsComponent
+export default withRouter(FillDetailsComponent)

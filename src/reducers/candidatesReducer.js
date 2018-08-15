@@ -2,8 +2,8 @@ import { actionTypes } from '../utils/constants'
 
 const candidatesReducer = (state=[], action) => {
     switch (action.type){
-        case actionTypes.CANDIDATES_FETCH_SUCCEEDED:
-            return action.candidates
+        case actionTypes.DATA_FETCH_SUCCEEDED:
+            return action.data.candidates
         default:
             return state;
     }

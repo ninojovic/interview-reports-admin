@@ -3,7 +3,7 @@ import React from 'react'
 function fetchReportsOnMount(WrappedComponent) {
     return class extends React.Component {
         componentDidMount() {
-            this.props.fetchReportsRequest()
+            this.props.fetchDataRequest()
         }
 
         render() {

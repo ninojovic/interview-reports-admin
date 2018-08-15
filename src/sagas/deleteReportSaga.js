@@ -10,7 +10,7 @@ function* deleteReport(action) {
     try {
         yield call(apiDelete, action.id)
         yield put({ type: actionTypes.REPORT_DELETE_SUCCEEDED })
-        yield put({ type: actionTypes.REPORTS_FETCH_REQUESTED })
+        yield put({ type: actionTypes.DATA_FETCH_REQUESTED })
     } catch (e) {
         yield put({ type: actionTypes.REPORT_DELETE_FAILED })
         console.log(e)

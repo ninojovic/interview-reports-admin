@@ -1,18 +1,5 @@
 import { actionTypes } from '../utils/constants'
 
-export const fetchReportsSucceed = (reports) => {
-    return {
-        type: actionTypes.REPORTS_FETCH_SUCCEEDED,
-        reports
-    }
-}
-
-export const fetchReportsRequest = () => {
-    return {
-        type: actionTypes.REPORTS_FETCH_REQUESTED
-    }
-}
-
 export const selectCandidate = (candidateName, candidateId) => {
     return {
         type: actionTypes.CANDIDATE_SELECTED,
@@ -21,16 +8,16 @@ export const selectCandidate = (candidateName, candidateId) => {
     }
 }
 
-export const fetchCandidatesRequest = () => {
+export const fetchDataRequest = () => {
     return {
-        type: actionTypes.CANDIDATES_FETCH_REQUESTED
+        type: actionTypes.DATA_FETCH_REQUESTED
     }
 }
 
-export const fetchCandidatesSucceed = (candidates) => {
+export const fetchDataSucceed = (data) => {
     return {
-        type: actionTypes.CANDIDATES_FETCH_SUCCEEDED,
-        candidates
+        type: actionTypes.DATA_FETCH_SUCCEEDED,
+        data
     }
 }
 
@@ -39,19 +26,6 @@ export const selectCompany = (companyName, companyId) => {
         type: actionTypes.COMPANY_SELECTED,
         companyId,
         companyName
-    }
-}
-
-export const fetchCompaniesRequest = () => {
-    return {
-        type: actionTypes.COMPANIES_FETCH_REQUESTED
-    }
-}
-
-export const fetchCompaniesSucceed = (companies) => {
-    return {
-        type: actionTypes.COMPANIES_FETCH_SUCCEEDED,
-        companies
     }
 }
 
@@ -116,9 +90,10 @@ export const fillInNotes = (notes) => {
     }
 }
 
-export const reportPostRequested = (wizardData) => {
+export const reportPostRequested = (wizardData, history) => {
     return {
         type: actionTypes.REPORT_POST_REQUESTED,
-        wizardData
+        wizardData,
+        history
     }
 }

@@ -19,6 +19,10 @@ export const actionTypes = {
     REPORT_POST_SUCCEEDED: "REPORT_POST_SUCCEEDED",
     REPORT_POST_FAILED: "REPORT_POST_FAILED",
 
+    DATA_FETCH_REQUESTED: "DATA_FETCH_REQUESTED",
+    DATA_FETCH_FAILED: "DATA_FETCH_FAILED",
+    DATA_FETCH_SUCCEEDED: "DATA_FETCH_SUCCEEDED",
+
     SET_ACTIVE_MODAL: "SET_ACTIVE_MODAL",
     SET_ACTIVE_WIZARD_TAB: "SET_ACTIVE_WIZARD_TAB",
 
@@ -34,6 +38,7 @@ export const actionTypes = {
 }
 
 export const apiEndpoints = {
+    baseUrl: "http://localhost:3333/api/",
     reports: "http://localhost:3333/api/reports/",
     candidates: "http://localhost:3333/api/candidates/",
     companies: "http://localhost:3333/api/companies/",

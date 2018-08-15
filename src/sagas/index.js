@@ -1,16 +1,12 @@
 import { all } from 'redux-saga/effects'
-import fetchReportsSaga from './fetchReportsSaga'
 import deleteReportSaga from './deleteReportSaga'
-import fetchCandidatesSaga from './fetchCandidatesSaga'
-import fetchCompaniesSaga from './fetchCompaniesSaga'
 import reportPostSaga from './reportPostSaga';
+import fetchDataSaga from './fetchDataSaga';
 
 function* rootSaga(){
     yield all([
-        fetchReportsSaga(),
+        fetchDataSaga(),
         deleteReportSaga(),
-        fetchCompaniesSaga(),
-        fetchCandidatesSaga(),
         reportPostSaga()
     ])
 }
