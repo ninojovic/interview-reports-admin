@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 import axios from 'axios'
 import { actionTypes, apiEndpoints } from '../utils/constants'
 
@@ -17,8 +17,4 @@ function* deleteReport(action) {
     }
 }
 
-function* deleteReportSaga() {
-    yield takeLatest(actionTypes.REPORT_DELETE_REQUESTED, deleteReport)
-}
-
-export default deleteReportSaga
+export default deleteReport

@@ -32,7 +32,7 @@ class ModalComponent extends Component {
                         <label className="modalLabel">status</label>
                         <h5>{status}</h5>
                         <label className="modalLabel">notes</label>
-                        <p>{notes}</p>
+                        <h5>{notes}</h5>
                         
                     </div>
                 </div>

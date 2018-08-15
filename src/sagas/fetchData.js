@@ -1,4 +1,4 @@
-import { call, put, takeLatest, all } from 'redux-saga/effects'
+import { call, put, all } from 'redux-saga/effects'
 import axios from 'axios'
 
 import { actionTypes, apiEndpoints } from '../utils/constants'
@@ -12,18 +12,11 @@ function* fetchData() {
     let data = {};
 
     try {
-        const [candidates, companies, reports] = yield all([
+        [data.candidates, data.companies, data.reports] = yield all([
             call(apiGet, "candidates"),
             call(apiGet, "companies"),
             call(apiGet, "reports")
         ])
-
-        data = {
-            candidates: candidates,
-            companies: companies,
-            reports: reports
-        }
-
     } catch (e) {
         yield put({ type: actionTypes.DATA_FETCH_FAILED })
         console.log(e)
@@ -33,8 +26,4 @@ function* fetchData() {
     yield put({ type: actionTypes.DATA_FETCH_SUCCEEDED, data })
 }
 
-function* fetchDataSaga() {
-    yield takeLatest(actionTypes.DATA_FETCH_REQUESTED, fetchData)
-}
-
-export default fetchDataSaga
+export default fetchData

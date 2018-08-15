@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 import axios from 'axios'
 
 import { actionTypes, apiEndpoints } from '../utils/constants'
@@ -19,8 +19,4 @@ function* postReport(action) {
     }
 }
 
-function* reportPostSaga() {
-    yield takeLatest(actionTypes.REPORT_POST_REQUESTED, postReport)
-}
-
-export default reportPostSaga
+export default postReport
